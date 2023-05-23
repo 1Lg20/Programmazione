@@ -27,26 +27,146 @@
         <!-- Spiegazione linguaggio -->
         <div class="row">
             <div class="col-12 text-center h2 TextTitle">Cos'è Assembly</div>
-            <div class="col-12 text-center TextContent">Assembly è un linguaggio di programmazione a basso livello dove si lavora direttamente sui registri, andando manualmente a indicare quale valore inserire all'interno del singolo registro e quale istruzione eseguire.</div>
+            <div class="col-12 text-center TextContent">Assembly è un linguaggio di programmazione a basso livello dove si lavora direttamente sui registri, andando manualmente a indicare quale valore inserire all'interno del singolo registro e quale istruzione eseguire. <br>Esistono diversi tipi di sintassi per programmare in assembly, nel nostro caso vedremo la sintassi AT&T per processori x86(32bit).</div>
         </div>
 
         <!-- Indice -->
         <div class="row justify-content-center">
             <div class="col-11 TextTitle h2 text-center">INDICE</div>
-            <div class="col-11 col-md-5 me-0 me-md-5 h2 text-center TextContent">
+
+            <div class="col-11 col-md-5 me-0 me-md-5 d-flex justify-content-center">
+                
+                <div class="row justify-content-center">
+                    <div class="col-11 d-flex justify-content-center"><a class=" h4 text-center TextLink" href="#Necessario">>Necessario</a></div>
+                    <div class="col-11 d-flex justify-content-center"><a class=" h4 text-center TextLink" href="#compilare/Struttura">>Creare e Compilare</a></div>
+                    <div class="col-11 d-flex justify-content-center"><a class=" h4 text-center TextLink" href="#Muovere">>Muovere elementi</a></div>
+                    <div class="col-11 d-flex justify-content-center"><a class=" h4 text-center TextLink" href="#variabili">>Variabili e etichette</a></div>
+                    <div class="col-11 d-flex justify-content-center"><a class=" h4 text-center TextLink" href="#Stampa">>Stampa a video</a></div>
+                </div>
                 
             </div>
-            <div class="col-11 col-md-5 h2 text-center TextContent">
+            <div class="col-11 col-md-5 d-flex justify-content-center">
+
+                <div class="row justify-content-center">
+                    <div class="col-11 d-flex justify-content-center"><a class=" h4 text-center TextLink" href="#Operazioni">>4 Operazioni</a></div>
+                    <div class="col-11 d-flex justify-content-center"><a class=" h4 text-center TextLink" href="#Confronto">>Confornto tra numeri</a></div>
+                    <div class="col-11 d-flex justify-content-center"><a class=" h4 text-center TextLink" href="#Input">>Input</a></div>
+                    <div class="col-11 d-flex justify-content-center"><a class=" h4 text-center TextLink" href="#Vettori">>Vettori</a></div>
+                    <div class="col-11 d-flex justify-content-center"><a class=" h4 text-center TextLink" href="#for">>Ciclo for</a></div>
+                </div>
 
             </div>
         </div>
 
         <!-- Spiegazione -->
+        <div class="row justify-content-center">
 
-        <div class="row mx-auto justify-content-center bordo">
-            <div class="col-11 TextTitle text-center h2">Column</div>
-            <div class="col-11 TextContent text-center">Column</div>
-            <div class="col-11 TextProgram text-center">Column</div>
+            <div class="col-11 col-lg-5 me-0 me-lg-5 mt-5">
+                <!--Necessario  -->
+                <div id="Necessario" class="row mx-auto justify-content-center bordo">
+                    <div class="col-11 TextTitle text-center h2">COSA SERVE</div>
+                    <div class="col-11 TextContent text-center"> Per programmare in Assembly Utilizzeremeno il l'edito di testo e dil compilarìtore "GCC" Con un apposito plug-in, in aggiunta useremo il "DDD" per vedere il contenuto dei registri. <br>Tutto questo su un sistema operativo Linux. <br>Comati per installare il necessario:</div>
+                    <div class="col-11 TextProgram text-center">sudo apt-get install build-essential<br>sudo apt-get install gcc-multilib<br>sudo apt install ddd</div>
+                </div>
+            </div>
+            
+            <div class="col-11 col-lg-5 mt-5">
+                <!--Come compilare/Struttura file  -->
+                <div id="compilare/Struttura" class="row mx-auto justify-content-center bordo">
+                    <div class="col-11 TextTitle text-center h2">CREARE ED ESEGUIRE FILE</div>
+                    <div class="col-11 TextContent text-center">In Assembly il file che poi andremonna campilare deve avere una struttura ben definita: <br>Deve vadere una zona .data per le variabili e una zona .text dove andremo a dichiarare il main globale per poi scriverci dopo il codice. <br>Al fondo per terminare il programma è necessario richiamare la syscall exit(guarda nel prossimo paragrafo la sintassi)<br> Il file deve essere salvato come .s, per compilare utilizziamo il gcc. Su alcuni sistemi operativi(Es.Ubuntu) potrebbe comparire un warning che è possibile rimuovere inserendi -no-pie qualdo si compila. nel comando inseriamo -g nel caso volessimo usare il ddd mentre -m32 per indicare che utilizziamo registri a 32bit.</div>
+                    <div class="col-11 TextProgram text-center">.data <br><br>.text <br>.global main <br>main: <br>---------------- <br> gcc file.s -o file.o -m32 -g </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="row justify-content-center">
+
+            <div class="col-11 col-lg-5 me-0 me-lg-5 mt-5">
+                <!--Muovere elementi  -->
+                <div id="Muovere" class="row mx-auto justify-content-center bordo">
+                    <div class="col-11 TextTitle text-center h2">MUOVERE ELEMENTI</div>
+                    <div class="col-11 TextContent text-center">In assembly Abbiamo bisogno di inseririre determinati valori all'interno dei registri, per svolgere questo cmpito utlizzialo il comando "mov" che richiede 2 parapetri, il valore da spostare e la dastinazione in cui metterlo. <br>Essendo che noi utiizziamo una sintassi a 32bit, non dobbiamo spostare l'intero contenuto del registro(Sui pc odierni sono a 64bit) quindi utilizziamo la "movl" per spostare solo 32bit che sono quelli che ci interassano. Questa aggiunta di una l al comando si presenterà ogni volta che andremo a lavorare condei registri(Useremo i registri aex,ebx,ecx,edx più altri 2 per queanto riguarda i vettori e il ciclo for). <br>Nell'esempio andiamo a mettere il valore 4 all'interno di eax. <br>un altro esempio dove utilizziamo la "movl" è per terminare il programma:in questo caso rischiamiamo la syscall(Una chiamata di sistema per indicare che vogliamo teminare il programma) mettemdo il valore 1 in eax. La exit vuole anche il valore da poi ritornare la main per verificare che il programma sia terminatao correttamenti, questo valore è 0 e va inserito in ebx. Adesso richiemiamo l'attenzione del processore con l'interrupt "int $0x80", il procellore quindi andrà a leggere il valore in eax per sapere cosa deve fare, vedendo che è una exit andrà a leggere il contenuti di ebx per sapere quale valore restituire.</div>
+                    <div class="col-11 TextProgram text-center">movl $4,%eax <br>------------------<br>movl $1,%eax <br>movl $0,%ebx <br>int $0x80</div>
+                </div>
+            </div>
+            
+            <div class="col-11 col-lg-5 mt-5">
+                <!--variabili ed etichette  -->
+                <div id="variabili" class="row mx-auto justify-content-center bordo">
+                    <div class="col-11 TextTitle text-center h2">VARIABILI ED ETICHETTE</div>
+                    <div class="col-11 TextContent text-center">Per dichierare una variabile, quindi uno spazio in memoria ram dichiarare questa variabile nella sezione .data con la sintassi:"nomevariabile: .tipo valore" abbiamo diversi tipi: .long(4byte), .byte(1byte), .short(2 byte), .string(stringhe), .space(Per Creare uno spazio con una dimensione scelta, in byte)</div>
+                    <div class="col-11 TextProgram text-center">stringa: .string "Helloword"<br>var: .byte 1<br>var2: .short 1<br>var3: .long 1<br>spazio: .space 20 3 <br>riserva uno spazio di 20 byte identificato come "spazio" e ci inserisce dentro il valore 3</div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-11 col-lg-5 me-0 me-lg-5 mt-5">
+                <!--Stampa sul Terminale  -->
+                <div id="Stampa" class="row mx-auto justify-content-center bordo">
+                    <div class="col-11 TextTitle text-center h2">STAMPARE A VIDEO</div>
+                    <div class="col-11 TextContent text-center">Column</div>
+                    <div class="col-11 TextProgram text-center">Column</div>
+                </div>
+            </div>
+            
+            <div class="col-11 col-lg-5 mt-5">
+                <!--4 Operazioni  -->
+                <div id="Operazioni" class="row mx-auto justify-content-center bordo">
+                    <div class="col-11 TextTitle text-center h2">4 OPERAZIONI</div>
+                    <div class="col-11 TextContent text-center">Column</div>
+                    <div class="col-11 TextProgram text-center">Column</div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-11 col-lg-5 me-0 me-lg-5 mt-5">
+                <!--Confronto  -->
+                <div id="Confronto" class="row mx-auto justify-content-center bordo">
+                    <div class="col-11 TextTitle text-center h2">CONFRONTO TRA NUMERI</div>
+                    <div class="col-11 TextContent text-center">Column</div>
+                    <div class="col-11 TextProgram text-center">Column</div>
+                </div>
+            </div>
+            
+            <div class="col-11 col-lg-5 mt-5">
+                <!--Input  -->
+                <div id="Input" class="row mx-auto justify-content-center bordo">
+                    <div class="col-11 TextTitle text-center h2">INPUT</div>
+                    <div class="col-11 TextContent text-center">Column</div>
+                    <div class="col-11 TextProgram text-center">Column</div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-11 col-lg-5 me-0 me-lg-5 mt-5">
+                <!--Vettori  -->
+                <div id="Vettori" class="row mx-auto justify-content-center bordo">
+                    <div class="col-11 TextTitle text-center h2">VETTORI</div>
+                    <div class="col-11 TextContent text-center">Column</div>
+                    <div class="col-11 TextProgram text-center">Column</div>
+                </div>
+            </div>
+            
+            <div class="col-11 col-lg-5 mt-5">
+                <!--Ciclo for  -->
+                <div id="for" class="row mx-auto justify-content-center bordo">
+                    <div class="col-11 TextTitle text-center h2">CICLO FOR</div>
+                    <div class="col-11 TextContent text-center">Column</div>
+                    <div class="col-11 TextProgram text-center">Column</div>
+                </div>
+            </div>
+            
         </div>
 
     </div>
