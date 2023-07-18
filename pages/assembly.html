@@ -109,8 +109,8 @@
                 <!--Stampa sul Terminale  -->
                 <div id="Stampa" class="row mx-auto justify-content-center bordo">
                     <div class="col-11 TextTitle text-center h2">STAMPARE A VIDEO</div>
-                    <div class="col-11 TextContent text-center">Column</div>
-                    <div class="col-11 TextProgram text-center">Column</div>
+                    <div class="col-11 TextContent text-center">Una volta comprese Movl e Variabili è possibile fare un primo programma: un semplice Hello World. <br> Creo una variabile di tipo stringa nella sezione data, indico in ordine il numeor di Byte il canale da usare(0=input,1=output,2=error), indico la varibile da stampare, in numero di caratteri da stampare einfine richiamo l'attnezione della CPU.</div>
+                    <div class="col-11 TextProgram text-center">Hello: .string "Hello Word!\n" <br>movl $4,%eax <br>movl $1,%ebx <br>movl $Hello,%ecx <br>movl $13,%edx <br>int $0x80</div>
                 </div>
             </div>
             
@@ -118,8 +118,8 @@
                 <!--4 Operazioni  -->
                 <div id="Operazioni" class="row mx-auto justify-content-center bordo">
                     <div class="col-11 TextTitle text-center h2">4 OPERAZIONI</div>
-                    <div class="col-11 TextContent text-center">Column</div>
-                    <div class="col-11 TextProgram text-center">Column</div>
+                    <div class="col-11 TextContent text-center">>Somma->La somma in Assembly e un operazione a 2 operandi, di cui almeno 1(Il secondo) deve essere un registro, essendo che al suo interno verrà scritto il risultato, per indicare di fare un' addizione si utilizza il comando add <br>>Sottrazzione->La sottrazione in Assembly e un operazione a 2 operandi, di cui almeno 1(Il secondo) deve essere un registro, essendo che al suo interno verrà scritto il risultato, per indicare di fare una sottrazione si utilizza il comando sub <br>>Moltiplicazione->La moltiplicazione in Assembly è un operazione a singolo operando, quindi il primo valore va salvato in eax, mentre il secondo deve essere passato direttamente alla funzione mul, il risultato viene salvato in eax <br>>Divisione->La divisione in Assembly è un operazione a singolo operando, quindi il primo valore va salvato in eax(Dividendo), mentre il secondo(Divisore) deve essere passato direttamente alla funzione div, il risultato viene salvato in eax, mentre il resto in ebx che deve essere azzerato in precendenza:sia mediante uno xorl sia muovendo il valore 0 nel registro</div>
+                    <div class="col-11 TextProgram text-center">Somma <br>movl 	numero1,%eax <br>movl 	numero2,%ebx <br>addl 	%eax,%ebx <br><br>Sottrazzione <br>movl 	numero1,%eax <br>movl 	numero2,%ebx <br>subl 	%eax,%ebx <br><br>Moltiplicazione <br>movl 	numero2,%eax <br>movl 	numero1,%ebx <br>mull 	%ebx <br><br>Divisione <br>movl 	numero2,%eax <br>movl 	numero1,%ebx <br>xorl	%edx,%edx <br>divl 	%ebx</div>
                 </div>
             </div>
             
@@ -131,8 +131,8 @@
                 <!--Confronto  -->
                 <div id="Confronto" class="row mx-auto justify-content-center bordo">
                     <div class="col-11 TextTitle text-center h2">CONFRONTO TRA NUMERI</div>
-                    <div class="col-11 TextContent text-center">Column</div>
-                    <div class="col-11 TextProgram text-center">Column</div>
+                    <div class="col-11 TextContent text-center">Per eseguire un confronto tra valori in Assembly usiamo cmp, anchessa un operazione a 2 operandi di cui almeno 1 un registro. Subito dopo inseriamo una funzione di Jump che in base al risultato "salta" a una parte di programma(je=uguale, jne=diverso, jg=maggiore, jl=minore)ricordando che il confronto e sempre il secondo rispetto al primo.</div>
+                    <div class="col-11 TextProgram text-center">cmp $0,%edx <br>jne avanti</div>
                 </div>
             </div>
             
@@ -140,8 +140,8 @@
                 <!--Input  -->
                 <div id="Input" class="row mx-auto justify-content-center bordo">
                     <div class="col-11 TextTitle text-center h2">INPUT</div>
-                    <div class="col-11 TextContent text-center">Column</div>
-                    <div class="col-11 TextProgram text-center">Column</div>
+                    <div class="col-11 TextContent text-center">Un elemento cche non abbiamo trattato è la richiesta di dati in input che è molto simile alla stampa, ma cambiando syscall (3) e canale(input=0) e inserendo in edx il numeor di caratteri da raccogliere. Se si utilizza il DDD è possibile vedere che subito dopo ader premoto invio e in eax comparirà il numero di caratteri inseriti.</div>
+                    <div class="col-11 TextProgram text-center">dato: .string <br>movl $3,%eax <br>movl $0,%ebx <br>movl $dato,%ecx <br>movl $20,%edx</div>
                 </div>
             </div>
             
@@ -153,8 +153,8 @@
                 <!--Vettori  -->
                 <div id="Vettori" class="row mx-auto justify-content-center bordo">
                     <div class="col-11 TextTitle text-center h2">VETTORI</div>
-                    <div class="col-11 TextContent text-center">Column</div>
-                    <div class="col-11 TextProgram text-center">Column</div>
+                    <div class="col-11 TextContent text-center">I vettori non sono altro che un insieme di variabili poste una affianco all'altra. Per dichiarare un vettore in Assembly si deve prima inserire il nome del vettore, poi il tipo(non è possibile utilizzare il tipo .space) e poi i vari valori separati da una virgola. Infine inserirsco il edi o l'indice dell'ultima cella oppure la lunghezza del vettore. <br>Per accedere a una singola cella devo scrivere Nomevettore(Base,Indice,Scala) Base:(Facoltativo) cella da cuoi partire, se non indicato=0; <br>Indice:indice della cella a cui accedere(Utilizzare il registro esi); Scala:Dimensione in byte di ogni cella.</div>
+                    <div class="col-11 TextProgram text-center">vettore: .long 1,10,15,150,3,11 <br>movl $2,%esi <br>movl vettore(,%esi,4),%eax</div>
                 </div>
             </div>
             
@@ -162,8 +162,8 @@
                 <!--Ciclo for  -->
                 <div id="for" class="row mx-auto justify-content-center bordo">
                     <div class="col-11 TextTitle text-center h2">CICLO FOR</div>
-                    <div class="col-11 TextContent text-center">Column</div>
-                    <div class="col-11 TextProgram text-center">Column</div>
+                    <div class="col-11 TextContent text-center">Per accedere in modo automatico alle celle di un vettore è possibile creare un ciclo for, eseguendo un confronto tra il valore in edi e quello di esi, se in edi inseririamo la lunghezza del vettore, finchè esi sarà minore di edi continuerà a eseguire quella parte di programma saltando indietro, quando diventta uguale o maggiore, esce. Bisogna solo ricordarsi di incrementare il valore di esi, altrimanti la condizione non sarà mai falsa e il ciclo on terminerà mai</div>
+                    <div class="col-11 TextProgram text-center">.data <br>vettore: .long 5,6,10,15,100,4 <br><br>.text <br>.global main <br>main: <br>movl $0,%esi <br>movl $6,%edi <br> <br>ciclo: <br>movl vettore(,%esi,4),%ecx <br>//Incremento esi <br>incl %esi <br>cmpl %edi,%esi <br>jle ciclo	#Salta a ciclo se il valore è uguale o minore i quello in edi</div>
                 </div>
             </div>
             
