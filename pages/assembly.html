@@ -163,7 +163,7 @@
                 <div id="for" class="row mx-auto justify-content-center bordo">
                     <div class="col-11 TextTitle text-center h2">CICLO FOR</div>
                     <div class="col-11 TextContent text-center">Per accedere in modo automatico alle celle di un vettore è possibile creare un ciclo for, eseguendo un confronto tra il valore in edi e quello di esi, se in edi inseririamo la lunghezza del vettore, finchè esi sarà minore di edi continuerà a eseguire quella parte di programma saltando indietro, quando diventta uguale o maggiore, esce. Bisogna solo ricordarsi di incrementare il valore di esi, altrimanti la condizione non sarà mai falsa e il ciclo on terminerà mai</div>
-                    <div class="col-11 TextProgram text-center">.data <br>vettore: .long 5,6,10,15,100,4 <br><br>.text <br>.global main <br>main: <br>movl $0,%esi <br>movl $6,%edi <br> <br>ciclo: <br>movl vettore(,%esi,4),%ecx <br>//Incremento esi <br>incl %esi <br>cmpl %edi,%esi <br>jle ciclo	#Salta a ciclo se il valore è uguale o minore i quello in edi</div>
+                    <div class="col-11 TextProgram text-center">.data <br>vettore: .long 5,6,10,15,100,4 <br><br>.text <br>.global main <br>main: <br>movl $0,%esi <br>movl $6,%edi <br> <br>ciclo: <br>movl vettore(,%esi,4),%ecx <br>//Incremento esi <br>incl %esi <br>cmpl %edi,%esi <br>jl ciclo	#Salta a ciclo se il valore è minore i quello in edi</div>
                 </div>
             </div>
             
